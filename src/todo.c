@@ -12,9 +12,8 @@ void add_task(sqlite3 *db, const char *description) {
     }
 
     const char *sql = "INSERT INTO tasks (description) VALUES (?);";
-    const int rc = execute_sql_text_param(db, sql, description);
-    if (rc != SQLITE_DONE)
-        printf("Error: '%s'", sqlite3_errmsg(db));
+    execute_sql_text_param(db, sql, description);
+
 }
 
 
@@ -25,11 +24,7 @@ void mark_task_done(sqlite3 *db, int task_id) {
     }
 
     const char *sql = "UPDATE tasks SET status = 1 WHERE task_id = ?;";
-    const int rc = execute_sql_int_param(db, sql, task_id);
-
-    if (rc != SQLITE_DONE) {
-        fprintf(stderr, "Error: %s\n", sqlite3_errmsg(db));
-    }
+    execute_sql_int_param(db, sql, task_id);
 }
 
 
@@ -40,11 +35,8 @@ void delete_task(sqlite3 *db, const int task_id) {
     }
 
     const char *sql = "DELETE FROM tasks WHERE task_id = ?;";
-    const int rc = execute_sql_int_param(db, sql, task_id);
 
-    if (rc != SQLITE_DONE) {
-        fprintf(stderr, "Error: %s\n", sqlite3_errmsg(db));
-    }
+    execute_sql_int_param(db, sql, task_id);
 }
 
 void list_tasks(sqlite3 *db) {
