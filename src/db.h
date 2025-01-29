@@ -3,9 +3,6 @@
 
 #include <sqlite3.h>
 
-#define DATABASE_PATH "tasks.db"
-#define TABLE_NAME "tasks"
-
 int open_database(sqlite3 **db, const char *path);
 
 void close_database(sqlite3 *db);

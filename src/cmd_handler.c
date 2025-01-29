@@ -2,18 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "constants.h"
 #include "todo.h"
 
-
-typedef enum {
-    CMD_ADD,
-    CMD_LS,
-    CMD_DONE,
-    CMD_REPORT,
-    CMD_DEL,
-    CMD_HELP,
-    CMD_UNKNOWN
-} Command;
 
 Command get_cmd(const char *cmd) {
     if (strcmp(cmd, "add") == 0) return CMD_ADD;
@@ -40,24 +31,24 @@ void handle_command(sqlite3 *db, int argc, char *argv[]) {
     switch (cmd) {
         case CMD_ADD:
             add_task(db, argv[2]);
-        break;
+            break;
         case CMD_LS:
             list_tasks(db);
-        break;
+            break;
         case CMD_DONE:
             mark_task_done(db, atoi(argv[2]));
-        break;
+            break;
         case CMD_REPORT:
             print_report(db);
-        break;
+            break;
         case CMD_DEL:
             delete_task(db, atoi(argv[2]));
-        break;
+            break;
         case CMD_HELP:
             help();
         case CMD_UNKNOWN:
-            default:
-                printf("\nError: Unknown command '%s'\n", argv[1]);
-        help();
+        default:
+            printf("\nError: Unknown command '%s'\n", argv[1]);
+            help();
     }
 }

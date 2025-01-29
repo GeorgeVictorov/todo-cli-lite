@@ -11,6 +11,7 @@ add_executable(todo_cli_lite
         src/db.c
         src/todo.c
         src/cmd_handler.c
+        src/constants.h
 )
 target_link_libraries(todo_cli_lite sqlite3)
 

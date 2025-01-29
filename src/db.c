@@ -1,5 +1,6 @@
 #include "db.h"
 #include <stdio.h>
+#include "constants.h"
 
 int open_database(sqlite3 **db, const char *path) {
     const int rc = sqlite3_open(path, db);

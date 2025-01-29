@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "cmd_handler.h"
+#include "constants.h"
 #include "db.h"
-
 
 int main(const int argc, char *argv[]) {
     sqlite3 *db;
