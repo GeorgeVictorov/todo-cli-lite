@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int open_database(sqlite3 **db, const char *path) {
-    int rc = sqlite3_open(path, db);
+    const int rc = sqlite3_open(path, db);
     return rc;
 }
 
@@ -50,4 +50,20 @@ int execute_sql_int_param(sqlite3 *db, const char *sql, const int param) {
     const int rc = sqlite3_step(stmt);
     sqlite3_finalize(stmt);
     return rc;
+}
+
+int get_int_value(sqlite3 *db, const char *sql) {
+    sqlite3_stmt *stmt;
+    int count = 0;
+
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) == SQLITE_OK) {
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            count = sqlite3_column_int(stmt, 0);
+        }
+        sqlite3_finalize(stmt);
+    } else {
+        fprintf(stderr, "Error: %s\n", sqlite3_errmsg(db));
+    }
+
+    return count;
 }
