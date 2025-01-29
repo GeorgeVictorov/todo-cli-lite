@@ -35,7 +35,7 @@ int execute_sql(sqlite3 *db, const char *sql) {
     return rc;
 }
 
-void execute_sql_text_param(sqlite3 *db, const char *sql, const char *param) {
+int execute_sql_text_param(sqlite3 *db, const char *sql, const char *param) {
     sqlite3_stmt *stmt;
     sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
     sqlite3_bind_text(stmt, 1, param, -1, SQLITE_STATIC);
@@ -44,9 +44,10 @@ void execute_sql_text_param(sqlite3 *db, const char *sql, const char *param) {
     if (rc != SQLITE_DONE) {
         printf("Error: '%s'", sqlite3_errmsg(db));
     }
+    return rc;
 }
 
-void execute_sql_int_param(sqlite3 *db, const char *sql, const int param) {
+int execute_sql_int_param(sqlite3 *db, const char *sql, const int param) {
     sqlite3_stmt *stmt;
     sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
     sqlite3_bind_int(stmt, 1, param);
@@ -55,6 +56,7 @@ void execute_sql_int_param(sqlite3 *db, const char *sql, const int param) {
     if (rc != SQLITE_DONE) {
         fprintf(stderr, "Error: %s\n", sqlite3_errmsg(db));
     }
+    return rc;
 }
 
 int get_int_value(sqlite3 *db, const char *sql) {

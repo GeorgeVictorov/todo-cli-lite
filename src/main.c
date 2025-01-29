@@ -10,10 +10,7 @@ int main(const int argc, char *argv[]) {
         return 1;
     }
 
-    if (create_table(db) != SQLITE_OK) {
-        fprintf(stderr, "Failed to create table.\n");
-        return 1;
-    }
+    create_table(db);
 
     handle_command(db, argc, argv);
 
